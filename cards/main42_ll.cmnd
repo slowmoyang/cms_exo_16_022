@@ -1,0 +1,159 @@
+
+! 1) Settings used in the main program.
+Main:numberOfEvents = 10000    ! Number of events in the LHE file
+Main:spareMode1 = 10000            ! Number of events to be showered
+Main:spareWord1 = average         ! Event weights are normalized to sum 
+                                  ! or average to the cross section
+Main:timesAllowErrors = 1001  ! Number of allowed errors
+
+! 2) Settings related to output in init(), next(), amd stat().
+Init:showChangedSettings = on      ! list changed settings
+Init:showAllSettings = off         ! list all settings
+Init:showChangedParticleData = on  ! list changed particle data
+Init:showAllParticleData = off     ! list all particle data
+Next:numberCount = 5            ! print message every n events
+Next:numberShowLHA = 1             ! print LHA information n times
+Next:numberShowInfo = 1            ! print event information n times
+Next:numberShowProcess = 1         ! print process record n times
+Next:numberShowEvent = 1           ! print event record n times
+Stat:showPartonLevel = on          ! additional statistics on MPI
+#Random:setSeed = on
+#Random:setSeed = 10              
+
+! 3) Beam-parameter settings.
+Beams:idA = 2212                    ! Beam identities
+Beams:idB = 2212                    ! Beam identities
+Beams:eCM = 13000. 
+SUSY:all = off
+SUSY:gg2squarkantisquark  = on
+SUSY:qqbar2squarkantisquark= on
+
+#SoftQCD:all = on
+#Tune:pp = 5 
+#Beams:frameType = 4                ! LHE initialization
+#Beams:LHEF = tt.lhe            ! Input LHE file
+
+SLHA:useDecayTable = true
+SLHA:file = sps1a_ll.spc
+SLHA:readFrom = 2
+
+RHadrons:allow  = on
+RHadrons:allowDecay = on
+RHadrons:setMasses = on
+1000006:tau0 = 1000 !mm
+
+
+! 4) Switch on/off the key event-generation steps.
+#PDF:pSet = 7                       ! CTEQ6L
+PDF:pSet = 13                       ! NNPDF2.3 QCD+QED
+ProcessLevel:all = on              ! Generation
+ProcessLevel:resonanceDecays = on  ! Resonance decays
+PartonLevel:all = on               ! Paron level: if off, stops after hard process generation
+PartonLevel:MPI = off              ! Multiple interactions
+PartonLevel:ISR = on               ! Initial state shower
+PartonLevel:FSR = on               ! Final state shower
+PartonLevel:FSRinProcess = on      ! Final state shower in association with the hard process
+PartonLevel:FSRinResonances = on   ! Final state shower in resonance decays
+HadronLevel:all = on               ! Hadron level: if off, stops before hadronization
+HadronLevel:Hadronize = on         ! Hadronization
+#HadronLevel:Decay = on            ! Hadron decays
+PhaseSpace:mHatMin = 4.            ! Min invariant mass
+PhaseSpace:mHatMax = -1.           ! Max invariant mass
+PhaseSpace:pTHatMin = 0.           ! Min pT in 2->2
+PhaseSpace:pTHatMax = -1.          ! Max pT in 2->2
+PhaseSpace:pTHatMinDiverge = 1.    ! If massless final state, to avoid divergences
+PhaseSpace:useBreitWigners = on    ! Masses according to Breit-Wigner
+#PhaseSpace:pTHat3Min = 0.         ! Min pT for the hardest parton in 2->3
+PhaseSpace:pTHat3Max = -1.         ! Max pT for the hardest parton in 2->3
+PhaseSpace:pTHat5Min = 0.          ! Min pT for the softest parton in 2->3
+PhaseSpace:pTHat5Max = -1.         ! Max pT for the softest parton in 2->3
+PhaseSpace:RsepMin = 0.            ! Min R separation in 2->3
+
+! 5) Final-state shower.
+TimeShower:pTmaxMatch = 1          ! Use scalup (re-check)
+TimeShower:pTmaxFudge = 1.         ! Factor changing the max scale
+TimeShower:alphaSvalue = 0.118     ! Alpha_s(MZ) in final-state shower
+TimeShower:alphaSorder = 1         ! Alpha_s running order in final-state shower
+TimeShower:alphaEMorder = 0        ! Alpha_EM running order in final-state shower
+TimeShower:interleave = on         ! If on, FSR interleaved with ISR
+TimeShower:allowBeamRecoil = on    ! If off, no energy transfer to from ISR to FSR
+TimeShower:dampenBeamRecoil = off  ! Dampens the effect of beam recoil
+TimeShower:globalRecoil = on       ! All final-state particles recoil against the branching
+TimeShower:nMaxGlobalRecoil = 1    ! Number of splittings with TimeShower:globalRecoil = on
+TimeShower:globalRecoilMode = 2    ! Global recoil only for S events whose first emission is FSR
+TimeShower:nMaxGlobalBranch = 1    ! Number of FSR splittings proposed with global recoil
+TimeShower:nPartonsInBorn = -1      ! Number of Born QCD final-state partons (to treat H and S differently)
+TimeShower:limitPTmaxGlobal = on   ! Limits pT < min(SCALUP,mDipole/2).
+TimeShower:QCDshower = on          ! QCD final-state shower
+TimeShower:nGluonToQuark = 5       ! Number if flavors allowed in g->qqbar
+TimeShower:QEDshowerByQ = off      ! Prevent quarks from radiating photons
+TimeShower:QEDshowerByL = off      ! Prevent leptons from radiating photons
+TimeShower:QEDshowerByGamma = off  ! Prevent photons from branching
+TimeShower:MEcorrections = off     ! No Matrix-element corrections
+TimeShower:MEafterFirst = off      ! No Matrix-element corrections after first emission
+TimeShower:phiPolAsym = on         ! Azimuthal asymmetry induced by gluon polarization
+TimeShower:alphaSuseCMW = false    ! Use the CMW prescription in FSR
+
+! 6) Initial-state shower.
+SpaceShower:pTmaxMatch = 1         ! Use scalup (re-check)
+SpaceShower:pTmaxFudge = 1.        ! Factor changing the max scale
+SpaceShower:alphaSvalue = 0.118    ! Alpha_s(MZ) in final-state shower
+SpaceShower:alphaSorder = 1        ! Alpha_s running order in final-state shower
+SpaceShower:alphaEMorder = 0       ! Alpha_EM running order in final-state shower
+SpaceShower:QCDshower = on         ! QCD final-state shower
+SpaceShower:QEDshowerByQ = off     ! Prevent quarks from radiating photons
+SpaceShower:QEDshowerByL = off     ! Prevent leptons from radiating photons
+SpaceShower:MEcorrections = off    ! No Matrix-element corrections
+SpaceShower:MEafterFirst = off     ! No Matrix-element corrections after first emission
+SpaceShower:phiPolAsym = on        ! Azimuthal asymmetry induced by gluon polarization
+SpaceShower:nQuarkIn = 5           ! Number of flavors in g->qqbar and also in incoming beams
+SpaceShower:rapidityorder = off    ! Do not order branchings in rapidity
+SpaceShower:alphaSuseCMW = false   ! Use the CMW prescription in ISR
+
+! 7) Non-perturbative stuff.
+BeamRemnants:primordialKT = off    ! No primordial kT
+
+! 8) Particle characteristics.
+1:m0 = 0.33                    ! down mass
+2:m0 = 0.33                    ! up mass
+3:m0 = 0.5                    ! strange mass
+4:m0 = 1.5                    ! charm mass
+5:m0 = 4.8                    ! bottom mass
+6:m0 = 173.0                      ! top mass
+11:m0 = 0.000510999                   ! electron mass
+13:m0 = 0.105658                  ! muon mass
+15:m0 = 1.77682                 ! tauon mass
+23:m0 = 91.188                     ! Z mass
+24:m0 = 80.419002                     ! W mass
+25:m0 = 125.0                   ! Higgs mass
+6:mWidth = 1.4915                 ! top width
+23:mWidth = 2.441404                ! Z width
+24:mWidth = 2.0476                ! W width
+25:mWidth = 0.00407              ! Higgs width
+
+! 9) Multijet merging.
+JetMatching:doFxFx = off          ! switch off FxFx
+
+
+##111:mayDecay = false               ! stable pi0
+#211:mayDecay = false              ! stable pions
+#8880023:onMode = off
+#8880023:onIfMatch = 25 8880022
+#25:onMode = off  ! First switch decays off
+#6:onMode = off  ! First switch decays off
+#24:onMode = off  ! First switch decays off
+#25:onIfAny = 5 22
+#25:onIfMatch = 15 15         ! Decay mode 1 of 5
+#25:offIfMatch = 21 21          ! Decay mode 1 of 5
+#25:offIfMatch = 22 23          ! Decay mode 1 of 5
+#25:offIfMatch = 23 23          ! Decay mode 1 of 5
+#25:offIfMatch = 24 24          ! Decay mode 1 of 5
+#25:offIfMatch = 13 13          ! Decay mode 1 of 5
+#25:offIfMatch = 4 4          ! Decay mode 1 of 5
+#25:offIfMatch = 3 3          ! Decay mode 1 of 5
+#25:onIfMatch = 22 22          ! Decay mode 1 of 5
+#25:onIfMatch = 5 5          ! Decay mode 1 of 5
+
+#6:onIfMatch = 24 5          ! Decay mode 2 of 5
+#24:onPosIfAny = 1 2 3 4 5    ! switch on all W+ decays to quarks
+#24:onNegIfAny = 1 2 3 4 5  ! switch on all W- decays to leptons

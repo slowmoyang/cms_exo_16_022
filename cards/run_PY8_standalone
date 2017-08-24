@@ -1,0 +1,6 @@
+1. we need to compile HepMC(v2 or v3), and link to Pythia8.
+2. compile Pythia8, and main42 example (this is a example for you to generate hepmc output).
+3. edit main42.cmnd (command card for main42), we need to turn on the link to the SLHA file.
+ Note that, please used the SLHA file on CMS github link send by Jory. They already modified stop decay mode.
+ And we also need to edit tau0(mm) in PY8 and also stop decay width in SLHA file.
+4. run ./main42 main42cmnd output.hep > output  
